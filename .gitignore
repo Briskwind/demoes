@@ -1,1 +1,7 @@
-*~
+
+*.swp
+*.swo
+*.un~
+*.idea
+*.pyc
+*.sqlite3
