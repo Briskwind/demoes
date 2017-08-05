@@ -29,19 +29,22 @@ def bubble_sort(record_list):
 
 def bubble_sort_update(order_list):
     """ 添加了 flag ，有数据交换，则在进行下一轮循环判断"""
-    count = 0
+    cycle_count = 0
+    swap_count = 0
+
     length = len(order_list)
     flag = True
     for i in range(length - 1):
         if flag:
             flag = False
             for j in range(length - i - 1):
-                count += 1
+                cycle_count += 1
 
                 if order_list[j] > order_list[j + 1]:
                     order_list[j], order_list[j + 1] = order_list[j + 1], order_list[j]
                     flag = True
-    print('order_list', order_list, count)
+                    swap_count += 1
+    print('order_list', order_list, cycle_count, swap_count)
 
 
 # bubble_sort_update(list_2)
@@ -57,14 +60,14 @@ simple = [54, 38, 96, 23, 15, 72, 60, 45, 83]
 
 def simple_sort(record_list):
     """ Simple Selection Sort """
-    count = 0
-
+    cycle_count = 0
     swap_count = 0
+
     length = len(record_list)
     for i in range(length - 1):
         k = i
         for j in range(i + 1, length):
-            count += 1
+            cycle_count += 1
             if record_list[k] > record_list[j]:
                 k = j
 
@@ -72,7 +75,7 @@ def simple_sort(record_list):
             record_list[i], record_list[k] = record_list[k], record_list[i]
             swap_count += 1
 
-    print('simple_sort', record_list, count, swap_count)
+    print('simple_sort', record_list, cycle_count, swap_count)
 
 
 # simple_sort(simple)
