@@ -30,7 +30,7 @@ def create_key(code):
 
 
 def encrypting_file(result_file, target_file):
-    
+
     """ 使用公钥加密文件,混合加密方法，即 PKCS#1 OAEP"""
 
     with open(result_file, 'wb') as out_file:
