@@ -1,5 +1,10 @@
+from kumbu_demo.f_s import LOGGER
+
 
 def fib(n):
+    if n == 5:
+        LOGGER.info('fib, n: %s', n)
+
     if n == 0:
         return 0
     elif n == 1:

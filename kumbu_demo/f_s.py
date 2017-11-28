@@ -1,9 +1,21 @@
 from __future__ import absolute_import, unicode_literals
 
+from logging.config import fileConfig
+
+import logging
 from kombu import Connection, Queue
 from kombu import Producer
 from kombu.mixins import ConsumerMixin
 from kumbu_demo import services
+
+import os
+filepath = os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), 'log_conf.ini')
+
+fileConfig(filepath)
+
+LOGGER = logging.getLogger()
+
 
 class Server(ConsumerMixin):
     def __init__(self, connection):
@@ -19,14 +31,15 @@ class Server(ConsumerMixin):
         )]
 
     def on_request(self, message):
-        print('message.payload', message.payload)
+        LOGGER.info('message.payload: %s',  message.payload)
         fun = message.payload['fun']
         args = message.payload['args']
         kwargs = message.payload['kwargs']
 
         function = getattr(services, fun)
         result = function(*args, **kwargs)
-        print('result', result)
+
+        LOGGER.info('on_request: %s',  result)
 
         self.producer.publish(
             {'result': result},
@@ -40,7 +53,7 @@ class Server(ConsumerMixin):
 
 def start_worker(broker_url):
     connection = Connection(broker_url)
-    print(' [x] Awaiting RPC requests')
+    LOGGER.info('Awaiting RPC requests')
     worker = Server(connection)
     worker.run()
 

@@ -41,7 +41,7 @@ def main(broker_url):
     connection = Connection(broker_url)
     rpc_client = KombuRpcClient(connection)
     print(' [x] Requesting fib(30)')
-    parameter = {'fun': 'fib', 'args': (30,), 'kwargs': {}}
+    parameter = {'fun': 'fib', 'args': (5,), 'kwargs': {}}
 
     response = rpc_client.send_request(**parameter)
     print(' [.] Got {0!r}'.format(response))
